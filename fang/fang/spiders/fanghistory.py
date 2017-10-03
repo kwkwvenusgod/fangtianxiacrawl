@@ -20,14 +20,14 @@ class FangtianxiahistorySpider(scrapy.Spider):
 
     def parse_page2(self, response):
         general_info = {'小区':'','区域':'','学校':''}
-        for item in response.xpath('//div[@class="trl-item2"]'):
-            key = item.xpath('.//div[@class="lab"]').extract()
-            value = item.xpath('.//div[@class="rcont"]/a').extract()
-            if key == '小区':
+        for item in response.css("div.trl-item2"):
+            key = item.xpath('.//div[@class="lab"]/text()').extract()[0]
+            value = item.xpath('.//div[@class="rcont"]/a/text()').extract()[0]
+            if key == u'\u5c0f\xa0\xa0\xa0\xa0\xa0\xa0\u533a':
                 general_info['小区'] = value
-            elif key == '区域':
+            elif key == u'\u533a\xa0\xa0\xa0\xa0\xa0\xa0\u57df':
                 general_info['区域'] = value
-            elif key == '学校':
+            elif key == u'\u5b66\xa0\xa0\xa0\xa0\xa0\xa0\u6821':
                 general_info['学校'] = value
 
         for item in response.xpath('//div[@class="ti-item-t"]'):
