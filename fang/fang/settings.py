@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import datetime
 
 BOT_NAME = 'fang'
 
@@ -21,8 +22,8 @@ NEWSPIDER_MODULE = 'fang.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-FEED_FORMAT = 'csv'
-FEED_URI = 'fang.csv'
+# FEED_FORMAT = 'csv'
+# FEED_URI = 'fang_crawl_' + datetime.datetime.now().strftime('%y%m%d%H%M%SZ') +'.csv'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
