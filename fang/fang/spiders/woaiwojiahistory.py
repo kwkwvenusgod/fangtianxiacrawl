@@ -6,6 +6,8 @@ class WoAiWoJiaHistory(scrapy.Spider):
 
     def __init__(self):
         self.driver = webdriver.Firefox()
+        self.download_delay = 0.25
+        self.driver.implicitly_wait(60)
 
     name = "woaiwojiahistory"
     start_urls = ["http://nj.5i5j.com//exchange//"]
@@ -36,14 +38,27 @@ class WoAiWoJiaHistory(scrapy.Spider):
 
         self.driver.get(response.url)
         while True:
-            for i in range(len(dealt_pages)):
-                if (i == 0)|(i == len(dealt_pages)-1):
+            for i in range(1, len(dealt_pages)):
+                if (i == 1) | (i == 2):
                     continue
                 next = self.driver.find_element_by_xpath('//ul[@class="deal-page"]/a['+str(i) + ']')
-            try:
-                next.click()
-            except:
-                break
+                try:
+                    next.click()
+                    info = self.driver.find_element_by_css_selector('ul.watch-record-text2')
+                    layout = self.driver.find_element_by_css_selector('//ul[@class=watch-record-text2]/li/p[@class="hx-text"]/b/text()')
+                    structure_condition = self.driver.find_element_by_xpath(
+                        '//ul[@class=watch-record-text2]/li/p[@class="hx-text"]/span[@class="small-font"]/text()')
+                    square = self.driver.find_element_by_xpath('//ul[@class=watch-record-text2]/li[2]/text()')
+                    contract_date = self.driver.find_element_by_xpath('//ul[@class=watch-record-text2]/li[3]/text()')
+                    price = self.driver.find_element_by_xpath('//ul[@class=watch-record-text2]/li[4]/text()')
+                    unite_price = self.driver.find_element_by_xpath('//ul[@class=watch-record-text2]/li[5]/text()')
+
+                    yield {"layout": layout, "condition": structure_condition, "square": square,
+                           "contract_date": contract_date,
+                           "price": price, "unite_price": unite_price}
+                except:
+                    break
+
         self.driver.close()
 
 
