@@ -22,8 +22,8 @@ NEWSPIDER_MODULE = 'fang.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-# FEED_FORMAT = 'csv'
-# FEED_URI = 'fang_crawl_' + datetime.datetime.now().strftime('%y%m%d%H%M%SZ') +'.csv'
+FEED_FORMAT = 'csv'
+FEED_URI = 'fang_crawl_' + datetime.datetime.now().strftime('%y%m%d%H%M%SZ') +'.csv'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
